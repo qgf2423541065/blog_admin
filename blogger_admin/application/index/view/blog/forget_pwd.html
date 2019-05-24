@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link rel="stylesheet" type="text/css" href="/blog_qian_tow/regist/css/regist.css">
+    <script type="text/javascript" src="/blog_qian_tow/regist/js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <article>
+            <h1><em>Blog</em><span>博客重置密码</span></h1>
+            <div class="main">
+                <form onsubmit="return blog_reg()" action="{:url('forget_pwd')}" method="POST">
+                    <div>
+                        <input type="text" class="login_name" onblur="loginname()" name="login_name" placeholder="登录名称" style="width: 250px;"><span class="ln"></span>
+                    </div>
+                    <div>
+                        <input type="password" class="pwd" onblur="pwd1()" name="pwd" placeholder="密码" style="width: 250px;"><span class="mm"></span>
+                    </div>
+                    <div>
+                        <input type="password" class="pwd_tow" onblur="pwd2()" placeholder="再次输入密码" style="width: 250px;"><span class="mmyz"></span>
+                    </div>
+                    <div>
+                        <input type="email" name="email" onblur="email_yz()" class="email" placeholder="请输入个人邮箱" style="width: 250px;">
+                    </div>
+                    <div >
+                        <input type="text" onblur="code_yx()" class="code" placeholder="请输入验证码" style="width: 100px;"><span class="code_text"></span>
+                    </div>
+                    <div>
+                        <button type="button"   class="btn" style="widows: 100;">发送验证码</button>
+                        <button type="submit">密码修改</button>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/static/jquery-3.3.1.min.js"></script>
+<script>
+    
+    //验证登录名称
+    function loginname(){
+        var username = $(".login_name").val();
+        var nameyz = /^[a-zA-Z]\w{5,19}$/;
+        if(username==''){
+            $(".ln").replaceWith("<span class='ln' style='color:red'>  ×</span>");
+            alert('登录名不能为空');
+            return false;
+         }
+        if(!nameyz.test(username)){
+            $(".ln").replaceWith("<span class='ln' style='color:red'>  ×</span>");
+            alert('必须是6-20位的字母组成');
+            return false;
+        }else{
+            $(".ln").replaceWith("<span class='ln' style='color:yellow'>  √</span>");
+            return true;
+        }
+    }
+    //密码
+    function pwd1(){
+        var pwd = $('.pwd').val();
+        var pwd_verify = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+        // alert(pwd);
+        if(pwd==''){
+            $(".mm").replaceWith("<span class='mm' style='color:red'>  ×</span>");
+            alert("密码不能为空");
+            return false;
+        }else if(!pwd_verify.test(pwd)){
+            $(".mm").replaceWith("<span class='mm' style='color:red'>  ×</span>");
+            alert("密码必须包含大写字母，小写字母和数字并长度在6-30");
+            return false;
+        }else{
+            $(".mm").replaceWith("<span class='mm' style='color:yellow'>  √</span>");
+            return true;
+        }
+    }
+    //验证密码
+    function pwd2(){
+        var pwd = $('.pwd').val();
+        var pwd_tow = $('.pwd_tow').val();
+        if(pwd_tow==''){
+            $(".mmyz").replaceWith("<span class='mmyz' style='color:red'>  ×</span>");
+            alert("验证密码不能为空");
+            return false;
+        }else if(pwd_tow!=pwd){
+            $(".mmyz").replaceWith("<span class='mmyz' style='color:red'>  ×</span>");
+            alert("验证密码与密码不一致");
+            return false;
+        }else{
+            $(".mmyz").replaceWith("<span class='mmyz' style='color:yellow'>  √</span>");
+            return true;
+        }
+    }
+    //发送邮件
+    $('.btn').click(function () {
+        var email = $('.email').val();
+        var login_name = $('.login_name').val();
+        var email_yz = /^\w+@\w+(\.\w+)+$/;
+        if(email==''){
+            alert('邮箱不能为空');
+            return false;
+         }
+         if(!email_yz.test(email)){
+            alert('邮箱格式有误');
+            return false;
+        }
+        $.ajax({
+            url: "{:url('email_code')}",
+            type: 'POST',
+            dataType: 'json',
+            data:{email:email,login_name:login_name},
+            success:function(data){
+                if(data==true){  
+                    alert('验证码发送成功，请在60秒之内输入验证码');
+                    return true;
+                }else{
+                    alert('验证码发送失败');
+                    return false;
+                }
+            }
+        })
+    })
+    //验证码不能为空
+    function code_yx(){
+        var code = $('.code').val();
+        if(code==''){
+            // $(".code_text").replaceWith("<span class='code' style='color:red'>验证码不能为空</span>");
+            alert('验证码不能为空');
+            return false;
+        }else{
+            $.ajax({
+            url: "{:url('email_code_num')}",
+            type: 'POST',
+            dataType: 'json',
+            data:{code:code},
+            success:function(data){
+                    // alert(data);
+                    if(data==2){  
+                        alert('验证码过期请重新验证');
+                        return false;
+                    }else if(data==0){
+                        alert('验证码输入有误');
+                        return false;
+                    }else if(data==1){
+                        $(".code_text").replaceWith("<span class='code' style='color:yellow'>√</span>");
+                        return true;
+                    }
+                }
+            })
+        }
+    }
+    //邮箱格式验证
+    function email_yz(){
+        var email = $('.email').val();
+        var email_yz = /^\w+@\w+(\.\w+)+$/;
+        if(email==''){
+            alert('邮箱不能为空');
+            return false;
+         }
+         if(!email_yz.test(email)){
+            alert('邮箱格式有误');
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function blog_reg(){
+        if(loginname()&pwd1()&pwd2()&code_yx()&email_yz()){
+            return true;
+        }else{
+            alert('请把信息填写完整');
+            return false;
+        }
+    }
+    
+</script>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<title>Insert title here</title>
+<script src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div>
+	<ul>
+		<li>
+			用户名：<input type="text" name="username" id="username" />
+		</li>
+		<li>
+			密&nbsp;码：<input type="text" name="pwd" id="pwd" />
+		</li>
+		<li>
+			<input id="btnsubmit" type="button" value="提交" />
+		</li>
+	</ul>
+</div>
+<script>
+$('#btnsubmit').click(function(){
+	var username = $('#username').val();
+	var pwd = $('#pwd').val();
+	
+	var reg = new RegExp(/[A-Za-z]+[0-9]+|[0-9]+[A-Za-z]+/);
+    if (!reg.test(username)){
+    	alert('用户名格式不正确！');
+    	return false;
+    }
+    
+    var reg = new RegExp(/^\d{6}$/);
+    if (!reg.test(pwd)){
+    	alert('密码格式不正确！');
+    	return false;
+    }
+    
+    $.ajax({
+    	method: "GET",
+    	url: "http://www.tp51.net/index/index/login",
+    	data: { 
+    		username: username, 
+    		pwd: pwd 
+    	}
+    }).done(function( msg ) {
+    	alert( "Data Saved: " + msg );
+    });
+	
+});
+</script>
+</body>
+</html>

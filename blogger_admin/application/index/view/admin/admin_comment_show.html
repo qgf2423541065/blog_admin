@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>博客 - 后台管理</title>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+    <!-- bootstrap -->
+    <link href="/admin/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/admin/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/admin/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+    <link href="/admin/css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="/admin/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/icons.css" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="/admin/css/compiled/index.css" type="text/css" media="screen" />    
+
+    <!-- open sans font -->
+    <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!-- lato font -->
+    <link href='http://fonts.useso.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="brand" href="index" style="font-weight:700;font-family:Microsoft Yahei">博客 - 后台管理</a>
+
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a href="number_admin" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        账户管理
+                    </a>
+                </li>
+                <li class="settings hidden-phone">
+                    <a href="personal-info" role="button">
+                        <i class="icon-cog"></i>
+                    </a>
+                </li>
+                <li class="settings hidden-phone">
+                    <a href="admin_login" role="button">
+                        <i class="icon-share-alt"></i>
+                    </a>
+                </li>
+            </ul>            
+        </div>
+    </div>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li class="active">
+                <div class="pointer">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <a href="{:url('admin')}">
+                    <i class="icon-home"></i>
+                    <span>后台首页</span>
+                </a>
+            </li>
+            
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-group"></i>
+                    <span>管理员管理</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{:url('admin_add')}">管理员添加</a></li>
+                    <li><a href="{:url('admin_admin')}">管理员管理</a></li>
+                </ul>
+            </li>  
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-group"></i>
+                    <span>用户管理</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{:url('user_list')}">用户列表</a></li>
+                    <li><a href="{:url('update_user')}">用户管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-picture"></i>
+                    <span>广告管理</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{:url('admin_advertising')}">广告添加</a></li>
+                    <li><a href="{:url('admin_adv_list')}">广告列表</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-th-large"></i>
+                    <span>关键字</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{:url('keyword')}">关键词添加</a></li>
+                    <li><a href="{:url('keyword_list')}">关键词列表</a></li>
+                </ul>
+            </li>    
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-signal"></i>
+                    <span>博文管理</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{:url('admin_blog')}">博文审核</a></li>
+                    <li><a href="{:url('admin_blog_list')}">未通过列表</a></li>
+                </ul>
+            </li>     
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-edit"></i>
+                    <span>评论管理</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{:url('admin_comment')}">评论审核</a></li>
+                    <li><a href="{:url('admin_comment_list')}">未通过列表</a></li>
+                </ul>
+            </li> 
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-edit"></i>
+                    <span>友情链接</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="{:url('friendship_add')}">友情链接添加</a></li>
+                    <li><a href="{:url('friendship_admin')}">友情链接管理</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- end sidebar -->
+    
+
+	<!-- main container -->
+    <div class="content">
+      
+        <div class="container-fluid">
+            <div id="pad-wrapper" class="users-list">
+                <div class="row-fluid header">
+                    <h3>评论管理</h3>
+                    <div class="span10 pull-right">
+                        <input type="text" class="span5 search" placeholder="Type a user's name..." />
+                        
+                        <!-- custom popup filter -->
+                        <!-- styles are located in /admin/delements.css -->
+                        <!-- script that enables this dropdown is located in js/theme.js -->
+                        <div class="ui-dropdown">
+                            <div class="head" data-toggle="tooltip" title="Click me!">
+                                Filter users
+                                <i class="arrow-down"></i>
+                            </div>  
+                            <div class="dialog">
+                                <div class="pointer">
+                                    <div class="arrow"></div>
+                                    <div class="arrow_border"></div>
+                                </div>
+                                <div class="body">
+                                    <p class="title">
+                                        Show users where:
+                                    </p>
+                                    <div class="form">
+                                        <select>
+                                            <option />Name
+                                            <option />Email
+                                            <option />Number of orders
+                                            <option />Signed up
+                                            <option />Last seen
+                                        </select>
+                                        <select>
+                                            <option />is equal to
+                                            <option />is not equal to
+                                            <option />is greater than
+                                            <option />starts with
+                                            <option />contains
+                                        </select>
+                                        <input type="text" />
+                                        <a class="btn-flat small">Add filter</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="new-user.html" class="btn-flat success pull-right">
+                            <span>&#43;</span>
+                            NEW USER
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Users table -->
+                <div class="row-fluid table">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>评论标题
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>评论人
+                                </th>
+                                <th class="span3 sortable">
+                                    <span class="line"></span>评论内容
+                                </th>
+                                <th class="span2 sortable">
+                                    <span class="line"></span>发布时间
+                                </th>
+                                <th class="span2 sortable">
+                                    <span class="line"></span>评论状态
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!-- row -->
+                        <tr>
+                            <td>
+                                {$v.tmp_tit}
+                            </td>
+                            <td>
+                                {$v.cmt_name}
+                            </td>
+                            <td>
+                                {$v.cmt_content|raw}
+                            </td>
+                            <td>
+                                {$v.cmt_time | date="Y-m-d H:i:s"}
+                            </td>
+                            <td class="article_title" data-id='{$v.cmt_type}' label-id='{$v.cmt_id}'>
+                                {if $v.cmt_type==1}<input type="submit" style="color:yellow" class="btn-glow primary" value='通过' />{else/}<input type="submit"  class="btn-glow primary"  value='未通过'>{/if}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination pull-right">
+                    <ul>
+                        <li><a href="#">&#8249;</a></li>
+                        <li><a class="active" href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&#8250;</a></li>
+                    </ul>
+                </div>
+                <!-- end users table -->
+            </div>
+        </div>
+    </div>
+    <!-- end main container -->
+
+
+	<!-- scripts -->
+    <script src="/admin/js/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui-1.10.2.custom.min.js"></script>
+    <!-- knob -->
+    <script src="/admin/js/jquery.knob.js"></script>
+    <!-- flot charts -->
+    <script src="/admin/js/jquery.flot.js"></script>
+    <script src="/admin/js/jquery.flot.stack.js"></script>
+    <script src="/admin/js/jquery.flot.resize.js"></script>
+    <script src="/admin/js/theme.js"></script>
+
+    
+</body>
+</html>
+<script type="text/javascript" src="/static/jquery-3.3.1.min.js"></script>
+<script>
+
+     $(document).on('click','.article_title',function () {
+        var status=$(this).attr('data-id');
+        var id=$(this).attr('label-id');
+        var a = $(this);
+        $.ajax(
+            {
+                url: "{:url('admin_blog_update')}",
+                type: 'POST',
+                dataType: 'json',
+                data:{id:id,type:status},
+                success:function(ty){
+                    if(ty.msg=='状态修改成功'){
+                        if(ty.code=='200'){
+                            a.html('<input type="submit"  class="btn-glow primary"  value=\'未通过\'>');
+                            a.attr('data-id',0);
+                        }else{
+                            a.html('<input type="submit"  class="btn-glow primary" style="color:yellow" value=\'通过\'>');
+                            a.attr('data-id',1);
+                        }
+                    }else{
+                        alert('修改失败');
+                    }
+                    
+                }
+            }
+        )
+    })
+</script>
+</html>

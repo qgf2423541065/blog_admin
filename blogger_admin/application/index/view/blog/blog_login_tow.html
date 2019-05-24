@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+    <link rel="stylesheet" type="text/css" href="/blog_qian_tow/login/css/login.css">
+    <script type="text/javascript" src="/blog_qian_tow/login/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".name input").focus(function(){
+                $(this).prev("i").css({"background-image":"url(/blog_qian_tow/login/img/user2.png)"});
+            });
+            $(".name input").blur(function(){
+                $(this).prev("i").css({"background-image":"url(/blog_qian_tow/login/img/user1.png)"});
+            });
+            $(".password input").focus(function(){
+                $(this).prev("i").css({"background-image":"url(/blog_qian_tow/login/img/password2.png)"});
+            });
+            $(".password input").blur(function(){
+                $(this).prev("i").css({"background-image":"url(/blog_qian_tow/login/img/password1.png)"});
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="wrap">
+            <header><em>Blog</em><span>博客登录</span></header>
+            <article>
+                <section>
+                    <aside>
+                        <em>
+                            <img src="/blog_qian_tow/login/img/user.png">
+                        </em>
+                         <form  onsubmit="return blog_reg()" method="post">
+                            <p class="name"><i></i><input type="text" name="login_name" onblur="loginname()" class="login_name" placeholder="请输入用户名" style="width: 230px"><span class="ln"></span></p>
+                            <p class="password"><i></i><input type="password" name="pwd" onblur="pwd1()" class="pwd" placeholder="请输入密码" style="width: 230px"><span class="mm"></span></p>
+                            <button type="submit" class="btn">登录</button>
+                            <div class="clear"> 
+                                <p class="regist"><span>&nbsp;没有账号?</span><a href="{:url('blog_register')}">立即注册</a></p>
+                                <p class="regist"><span>&nbsp;忘记密码?</span><a href="{:url('forget_pwd')}">忘记密码</a></p>
+                            </div>
+                        </form>
+                    </aside>
+                   
+                </section>               
+            </article>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="/static/jquery-3.3.1.min.js"></script>
+<script>
+    function loginname(){
+        var username = $(".login_name").val();
+        var nameyz = /^[a-zA-Z]\w{5,19}$/;
+        if(username==''){
+            $(".ln").replaceWith("<span class='ln' style='color:red'>  ×</span>");
+            alert('登录名不能为空');
+            return false;
+         }
+        if(!nameyz.test(username)){
+            $(".ln").replaceWith("<span class='ln' style='color:red'>  ×</span>");
+            alert('必须是6-20位的字母组成');
+            return false;
+        }else{
+            $(".ln").replaceWith("<span class='ln' style='color:yellow'>  √</span>");
+            return true;
+        }
+    }
+    //密码
+    function pwd1(){
+        var pwd = $('.pwd').val();
+        var pwd_verify = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+        // alert(pwd);
+        if(pwd==''){
+            $(".mm").replaceWith("<span class='mm' style='color:red'>  ×</span>");
+            alert("密码不能为空");
+            return false;
+        }else if(!pwd_verify.test(pwd)){
+            $(".mm").replaceWith("<span class='mm' style='color:red'>  ×</span>");
+            alert("密码必须包含大写字母，小写字母和数字并长度在6-30");
+            return false;
+        }else{
+            $(".mm").replaceWith("<span class='mm' style='color:yellow'>  √</span>");
+            return true;
+        }
+    }
+
+    function blog_reg(){
+        if(blog_reg()&pwd1()){
+            return true;
+        }else{
+            alert('请把用户名密码填写正确');
+            return false;
+        }
+    }
+    function btn(){
+        alert(3123);
+    }
+</script>

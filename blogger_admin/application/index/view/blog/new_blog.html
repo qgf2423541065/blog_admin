@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf8">
+<title>首页_西瓜个人博客</title>
+<meta name="keywords" content="个人博客,西瓜个人博客,个人博客模板,西瓜" />
+<meta name="description" content="西瓜个人博客" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="/wangEditor/dist/css/wangEditor.min.css">
+<link href="/boke_fanhua/css/base.css" rel="stylesheet">
+<link href="/boke_fanhua/css/index.css" rel="stylesheet">
+<link href="/boke_fanhua/css/m.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<header>
+    <div class="logo"><a href="{:url('my_msg')}"><span style="color: coral">{$show_name}</span> 个人博客</a></div>
+    <div style="margin-left: 1250px">
+      <a href="{:url('blog_login_tow')}">退出登录</a>
+  </div>
+  <nav id="nav">
+    <ul>
+      <li><a href="{:url('index')}">博主首页</a></li>
+      <li><a href="{:url('new_blog')}">最新博文</a></li>
+      <li><a href="{:url('blog_list')}">我的博文</a></li>
+      <li><a href="{:url('blog_about')}">我的评论</a></li>
+      <li><a href="{:url('blog_atten_my')}">我的关注</a></li>
+      <li><a href="{:url('blog_fans')}">我的粉丝</a></li>
+      <li><a href="{:url('blog_collect')}">我的收藏</a></li>
+    </ul>
+  </nav>
+  <script>
+window.onload = function ()
+{
+var obj=null;
+var As=document.getElementById('nav').getElementsByTagName('a');
+obj = As[0];
+for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+obj=As[i];}
+obj.id='selected'
+}
+</script> 
+</header>
+<article>
+  <div class="l_box">
+    
+    <div class="cloud">
+    </div>
+  </div>
+  <div class="r_box">
+    {volist name='data' id='v'}
+    <li>
+      <h3><a href="{:url('article_titile',['article_id'=>$v.article_id,'blog_id'=>$v.blog_id])}">{$v.tmp_tit}</a></h3>
+      <p>
+          <!-- <?php $html = htmlspecialchars_decode($v['article_excerpt']);
+            $content = str_replace(" ","",$html);
+            $contents = strip_tags($content);
+            $article_content =  mb_substr($contents,10,strlen($contents),'utf-8');
+              echo $article_content.'***';
+            ?> -->
+            {$v.article_excerpt|raw}
+      </p>
+      <p><span>{$v.issue_time | date="Y-m-d H:i:s"}</span><span style="margin-left: 370px"><span style="color: chocolate">作者</span>：<a href="{:url('article_titile',['article_id'=>$v.article_id,'blog_id'=>$v.blog_id])}" style="color: firebrick">{$v.show_name}</a></span></p>
+      
+      <div class="left_good" data-id="{$v.article_id}" blog-id="{$v.blog_id}" data-type="{$v.gb_type}">
+          {if $v.gb_type==1}
+              <img   src="/uploads/20190516/zan2.png" alt="攒" style="width: 30px;height: 30;float: left;" >
+          {else/}<img   src="/uploads/20190516/zan1.png" alt="攒" style="width: 30px;height: 30;float: left;" >{/if}
+      </div>
+      <div class="right_bad" data-id="{$v.article_id}" blog-id="{$v.blog_id}" data-type="{$v.gb_type}">
+          {if $v.gb_type==2}
+          <img  src="/uploads/20190516/cai2.png" alt="踩" style="width: 30px;height: 30;float: left;margin-left: 10px;margin-top: 5px" >
+          {else/}<img  src="/uploads/20190516/cai1.png" alt="踩" style="width: 30px;height: 30;float: left;margin-left: 10px;margin-top: 5px" >{/if}
+      </div>
+      <div class="cmt">
+          <img  src="/uploads/20190516/cmt1.png" alt="评论" style="width: 30px;height: 30;margin-left: 10px;margin-top: 5px" >
+      </div>
+    </li>
+    
+    {/volist}
+  </div>
+</article>
+</body>
+</html>
+<script type="text/javascript" src="/static/jquery-3.3.1.min.js"></script>
+<script>
+  // $('.cmt').click(function(){
+  //     $(this).html('<img  src="/uploads/20190516/cmt2.png" alt="评论" style="width: 30px;height: 30;margin-left: 10px;margin-top: 5px" >'); 
+  //     var title =  prompt("请输入评论内容","");
+  //     alert(title);
+  // })
+  $(".left_good").click(function(){
+    var article_id = $(this).attr('data-id');
+    var gb_type = $(this).attr('data-type');
+    var blog_id = $(this).attr('blog-id');
+    var a = $(this);
+        if(gb_type==""){
+          var gb_type = 1;
+          $.ajax({
+                  url: "{:url('good_insert')}",
+                  type: 'POST',
+                  dataType: 'json',
+                  data:{article_id:article_id,gb_type:gb_type,blog_id:blog_id},
+                  success:function(data){
+                      if(data==1){  
+                          alert('点赞成功');
+                          a.html('<img class="good1" src="/uploads/20190516/zan2.png" alt="攒" style="width: 30px;height: 30;float: left;" >');
+                      }
+                  }
+              })
+        }else{
+          alert('该文章已点评过');
+        }
+    });
+    $(".right_bad").click(function(){
+    var article_id = $(this).attr('data-id');
+    var gb_type = $(this).attr('data-type');
+    var blog_id = $(this).attr('blog-id');
+    var a = $(this);
+      if(gb_type==""){
+        var gb_type = 2;
+        $.ajax({
+                url: "{:url('good_insert')}",
+                type: 'POST',
+                dataType: 'json',
+                data:{article_id:article_id,gb_type:gb_type,blog_id:blog_id},
+                success:function(data){
+                    if(data==2){  
+                        alert('踩人成功');
+                        a.html('<img class="bad1"  src="/uploads/20190516/cai2.png" alt="踩" style="width: 30px;height: 30;float: left;margin-top: 5px;margin-left:4px" >');
+                    }
+                }
+            })
+      }else{
+        alert('该文章已点评过');
+      }
+    });
+</script>
+<script type="text/javascript" src="/wangEditor/dist/js/lib/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/wangEditor/dist/js/wangEditor.min.js"></script>
+<script type="text/javascript">
+  // 获取元素
+  var textarea = document.getElementById('textarea1');
+  // 生成编辑器
+  var editor = new wangEditor(textarea);
+  editor.create();
+</script>

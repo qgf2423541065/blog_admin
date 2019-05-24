@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf8">
+<title>首页_西瓜个人博客</title>
+<meta name="keywords" content="个人博客,西瓜个人博客,个人博客模板,西瓜" />
+<meta name="description" content="西瓜个人博客" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/boke_fanhua/css/base.css" rel="stylesheet">
+<link href="/boke_fanhua/css/index.css" rel="stylesheet">
+<link href="/boke_fanhua/css/m.css" rel="stylesheet">
+<style>
+    input{
+      width: 300px;
+      height: 30px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+</style>
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<header>
+  <div class="logo"><a href="{:url('my_msg')}"><span style="color: coral">{$show_name}</span> 个人博客</a></div>
+  <div style="margin-left: 1200px">
+      <a href="{:url('blog_update')}">修改信息</a> | 
+      <a href="{:url('blog_login')}">退出登录</a>
+  </div>
+  <nav id="nav">
+    <ul>
+      <li><a href="{:url('index')}">博主首页</a></li>
+      <li><a href="{:url('new_blog')}">最新博文</a></li>
+      <li><a href="{:url('blog_list')}">我的博文</a></li>
+      <li><a href="{:url('blog_about')}">我的评论</a></li>
+      <li><a href="{:url('blog_atten_my')}">我的关注</a></li>
+      <li><a href="{:url('blog_fans')}">我的粉丝</a></li>
+      <li><a href="{:url('blog_collect')}">我的收藏</a></li>
+    </ul>
+  </nav>
+  <script>
+window.onload = function ()
+{
+var obj=null;
+var As=document.getElementById('nav').getElementsByTagName('a');
+obj = As[0];
+for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+obj=As[i];}
+obj.id='selected'
+}
+</script> 
+</header>
+<article>
+  <div class="l_box">
+    <center>
+        <div  style="width: 800px;height: 600px;margin-left: 30%;margin-top: 20px;">
+            <form onsubmit="return blog_reg()" action="{:url('blog_update')}" method="POST">
+                <div>
+                    <input type="text" class="login_name" onblur="loginname()" value="{$data.login_name}"  name="login_name" placeholder="登录名称" style="width: 250px;"><span class="ln"></span>
+                </div>
+                <div>
+                    <input type="tel" class="phone" onblur="num()" name="phone" value="{$data.phone}" placeholder="手机号" style="width: 250px;"><span class="tel"></span>
+                </div>
+                <div>
+                    <input type="password" class="pwd" onblur="pwd1()"   placeholder="密码" style="width: 250px;"><span class="mm"></span>
+                </div>
+                <div>
+                    <input type="password" class="pwd_tow" onblur="pwd2()" name="pwd" placeholder="新密码" style="width: 250px;"><span class="mmyz"></span>
+                </div>
+                <div>
+                    <input type="email" name="email" onblur="email_yz()" value="{$data.email}" class="email" placeholder="请输入个人邮箱" style="width: 250px;">
+
+                    <button type="button"   class="btn" style="widows: 100;" >发送验证码</button>
+                </div>
+                <div >
+                    <input type="text" onblur="code_yx()" class="code" placeholder="请输入验证码" style="width: 100px;"><span class="code_text"></span>
+                </div>
+                <div>
+                    <button style="width: 100px;height: 50px;border-radius: 20%"  type="submit">修改</button>
+                </div>
+            </form>
+      </div>  
+    </center>
+  
+</article>
+
+</body>
+</html>
+<script type="text/javascript" src="/static/jquery-3.3.1.min.js"></script>
+<script>
+    
+    //验证登录名称
+    function loginname(){
+        var username = $(".login_name").val();
+        var nameyz = /^[a-zA-Z]\w{5,19}$/;
+        if(username==''){
+            $(".ln").replaceWith("<span class='ln' style='color:red'>  ×</span>");
+            alert('登录名不能为空');
+            return false;
+         }
+        if(!nameyz.test(username)){
+            $(".ln").replaceWith("<span class='ln' style='color:red'>  ×</span>");
+            alert('必须是6-20位的字母组成');
+            return false;
+        }else{
+            $(".ln").replaceWith("<span class='ln' style='color:green'>  √</span>");
+            return true;
+        }
+    }
+    //手机号验证
+    function num(){
+        var phone = $('.phone').val();
+        var r_tel=/^1[3,5,8]\d{9}$/
+        if(phone==''){
+            $(".tel").replaceWith("<span class='tel' style='color:red'>  ×</span>");
+            alert("手机号不能为空");
+            return false;
+        }else if(!r_tel.test(phone)){
+            $(".tel").replaceWith("<span class='tel' style='color:red'>  ×</span>");
+            alert("必须是11位的手机号");
+            return false;
+        }else{
+            $(".tel").replaceWith("<span class='tel' style='color:green'>  √</span>");
+            return true;
+        }
+    }
+    //密码
+    function pwd1(){
+        var pwd = $('.pwd').val();
+        var pwd_verify = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+        // alert(pwd);
+        if(pwd==''){
+            $(".mm").replaceWith("<span class='mm' style='color:red'>  ×</span>");
+            alert("密码不能为空");
+            return false;
+        }else if(!pwd_verify.test(pwd)){
+            $(".mm").replaceWith("<span class='mm' style='color:red'>  ×</span>");
+            alert("密码必须包含大写字母，小写字母和数字并长度在6-30");
+            return false;
+        }else{
+            $.ajax({
+                url: "{:url('pwd_yz')}",
+                type: 'POST',
+                dataType: 'json',
+                data:{pwd:pwd},
+                success:function(data){
+                  // alert(data);
+                    if(data==true){
+                      $(".mm").replaceWith("<span class='mm' style='color:green'>  √</span>");
+                        return true;
+                    }else{
+                      $(".mm").replaceWith("<span class='mm' style='color:red'>历史密码不正确</span>");
+                        return false;
+                    }
+                }
+            })
+            
+            return true;
+        }
+    }
+    //验证密码
+    function pwd2(){
+      var pwd = $('.pwd_tow').val();
+        var pwd_verify = /^([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*$/;
+        // alert(pwd);
+        if(pwd==''){
+            $(".mmyz").replaceWith("<span class='mmyz' style='color:red'>  ×</span>");
+            alert("新密码不能为空");
+            return false;
+        }else if(!pwd_verify.test(pwd)){
+            $(".mmyz").replaceWith("<span class='mmyz' style='color:red'>  ×</span>");
+            alert("密码必须包含大写字母，小写字母和数字并长度在6-30");
+            return false;
+        }else{
+            $(".mmyz").replaceWith("<span class='mmyz' style='color:green'>  √</span>");
+            return true;
+        }
+    }
+    //发送邮件
+    $('.btn').click(function () {
+        var email = $('.email').val();
+        // alert(email);die;
+        var email_yz = /^\w+@\w+(\.\w+)+$/;
+        if(email==''){
+            alert('邮箱不能为空');
+            return false;
+         }
+         if(!email_yz.test(email)){
+            alert('邮箱格式有误');
+            return false;
+        }else{
+          $.ajax({
+              url: "{:url('email_code')}",
+              type: 'POST',
+              dataType: 'json',
+              data:{email:email},
+              success:function(data){
+                  if(data==true){  
+                      alert('验证码发送成功，请在60秒之内输入验证码');
+                      return true;
+                  }else{
+                      alert('验证码发送失败');
+                      return false;
+                  }
+              }
+          })
+        }
+        
+    })
+    //验证码不能为空
+    function code_yx(){
+        var code = $('.code').val();
+        if(code==''){
+            alert('验证码不能为空');
+            return false;
+        }else{
+            $.ajax({
+            url: "{:url('email_code_num')}",
+            type: 'POST',
+            dataType: 'json',
+            data:{code:code},
+            success:function(data){
+                    // alert(data);
+                    if(data==2){  
+                        alert('验证码过期请重新验证');
+                        return false;
+                    }else if(data==0){
+                      $(".code_text").replaceWith("<span class='code' style='color:red'>×</span>");
+                        alert('验证码输入有误');
+                        return false;
+                    }else if(data==1){
+                        $(".code_text").replaceWith("<span class='code' style='color:green'>√</span>");
+                        return true;
+                    }
+                }
+            })
+        }
+    }
+    //邮箱格式验证
+    function email_yz(){
+        var email = $('.email').val();
+        var email_yz = /^\w+@\w+(\.\w+)+$/;
+        if(email==''){
+            alert('邮箱不能为空');
+            return false;
+         }
+         if(!email_yz.test(email)){
+            alert('邮箱格式有误');
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function blog_reg(){
+        if(pwd1()&pwd2()){
+            return true;
+        }else{
+            alert('请把信息填写完整');
+            return false;
+        }
+    }
+    
+</script>

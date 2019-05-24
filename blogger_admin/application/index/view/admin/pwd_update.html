@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>博客用户登录</title>
+<link rel="stylesheet" type="text/css" href="/static/blog_admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/blog_admin/css/body.css"/> 
+</head>
+<body>
+<div class="container">
+	<section id="content">
+		<form action="{:url('pwd_update')}" method="POST">
+			<h1>管理员密码修改</h1>
+			<div>
+                <input type="text" placeholder="登录名" name="username" required="" id="username" />
+            </div>
+            <div>
+                <input type="password" placeholder="上次密码" name="pwd" required="" id="password" />
+            </div>
+            <div>
+                <input type="password" placeholder="新密码" name="new_pwd" required="" id="password" />
+            </div>
+			 <div class="">
+				<span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>			</div> 
+			<div>
+				<!-- <input type="submit" value="Log in" /> -->
+				<input type="submit" value="修改" class="btn btn-primary" id="js-btn-login"/>
+				<!-- <a href="#">Register</a> -->
+			</div>
+		</form><!-- form -->
+	</section><!-- content -->
+</div>
+<!-- container -->
+
+</body>
+<!-- <script src="/static/jquery-3.3.1.min.js"></script>
+<script>
+	$(".pwd").blur(function(){
+		var pwd = $(this).val()
+        alert(pwd)
+        $.ajax({
+            url:"{:url('pwd_update')}",
+            type;'POST',
+            data:pwd,
+            dataType:'json',
+            success:function(data){
+
+            }
+        })
+	});
+</script> -->

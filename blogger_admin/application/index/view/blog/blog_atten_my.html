@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf8">
+<title>首页_西瓜个人博客</title>
+<meta name="keywords" content="个人博客,西瓜个人博客,个人博客模板,西瓜" />
+<meta name="description" content="西瓜个人博客" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/boke_fanhua/css/base.css" rel="stylesheet">
+<link href="/boke_fanhua/css/index.css" rel="stylesheet">
+<link href="/boke_fanhua/css/m.css" rel="stylesheet">
+<style>
+     .btn{
+    background-color: rgb(247, 183, 46);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-left: 500px;
+  }
+</style>
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<header>
+    <div class="logo"><a href="{:url('my_msg')}"><span style="color: coral">{$show_name}</span> 个人博客</a></div>
+    <div style="margin-left: 1250px">
+      <a href="{:url('blog_login')}">退出登录</a>
+  </div>
+  <nav id="nav">
+    <ul>
+      <li><a href="{:url('index')}">博主首页</a></li>
+      <li><a href="{:url('new_blog')}">最新博文</a></li>
+      <li><a href="{:url('blog_list')}">我的博文</a></li>
+      <li><a href="{:url('blog_about')}">我的评论</a></li>
+      <li><a href="{:url('blog_atten_my')}">我的关注</a></li>
+      <li><a href="{:url('blog_fans')}">我的粉丝</a></li>
+      <li><a href="{:url('blog_collect')}">我的收藏</a></li>
+    </ul>
+  </nav>
+  <script>
+window.onload = function ()
+{
+var obj=null;
+var As=document.getElementById('nav').getElementsByTagName('a');
+obj = As[0];
+for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+obj=As[i];}
+obj.id='selected'
+}
+</script> 
+</header>
+<article>
+  <div class="l_box">
+    
+   
+    <div class="search">
+      <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+        <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="show" value="title" type="hidden">
+        <input name="tempid" value="1" type="hidden">
+        <input name="tbname" value="news" type="hidden">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <div class="fenlei">
+      <h2>文章分类</h2>
+      <ul>
+        <li><a href="/">学无止境（33）</a></li>
+        <li><a href="/">日记（19）</a></li>
+        <li><a href="/">慢生活（520）</a></li>
+        <li><a href="/">美文欣赏（40）</a></li>
+      </ul>
+    </div>
+    <div class="tuijian">
+      <h2>站长推荐</h2>
+      <ul>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+      </ul>
+    </div>
+     <div class="tuijian">
+      <h2>点击排行</h2>
+      <ul>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+      </ul>
+    </div>
+<div class="cloud">
+      <h2>标签云</h2>
+      <ul>
+        <a href="/">陌上花开</a> <a href="/">校园生活</a> <a href="/">html5</a> <a href="/">SumSung</a> <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>
+      </ul>
+    </div>
+    <div class="guanzhu">
+      <h2>关注我 么么哒</h2>
+      <ul>
+        <img src="/boke_fanhua/images/wx.jpg">
+      </ul>
+    </div>
+  </div>
+  <div class="r_box">
+    {volist name='data' id='v'}
+        <div class="about_me" style="margin-top: 50px;">
+            <ul>
+            <i><a href="{:url('blog_all_article',['boke_id'=>$v.boke_id])}"><img src="{$v.msg_img}" style="border-radius: 100%;width: 80px;height: 80px;margin-left: 15px"></a></i>
+            <p><b>昵称：</b><span style="color: darkorange">{$v.show_name}</span></p>
+            <p><b>关注时间：</b><span style="color: rgb(12, 10, 10)">{$v.attention_time |date="Y-m-d H:i:s"}</span></p>
+            <p><b>个性签名：</b><span style="color: rgb(12, 10, 10)">{$v.msg_content}</span></p>
+            </ul>
+        </div>
+        <div class="y_box" data-id="{$v.boke_id}" type-id="{$v.attention_type}" style="float: reight;">
+            <button class="btn">{if $v.attention_type==1}取消关注{else/}关注{/if}</button>
+        </div>
+    {/volist}
+  </div>
+</article>
+</body>
+</html>
+<script type="text/javascript" src="/static/jquery-3.3.1.min.js"></script>
+<script>
+  $('.y_box').click(function(){
+    var boke_id=$(this).attr("data-id");
+    var atten_type=$(this).attr("type-id");
+    var a = $(this);
+    $.ajax({
+            url: "{:url('attention')}",
+            type: 'POST',
+            dataType: 'json',
+            data:{boke_id:boke_id,atten_type:atten_type},
+            success:function(data){
+              // alert(data);
+                if(data==1){  
+                    alert('关注成功');
+                    a.html('<button class="btn">取消关注</button>');
+                    a.attr('type-id',1);
+                    return true;
+                }else if(data==0){
+                    alert('验证码发送失败');
+                }else if(data==2){  
+                    alert('取关成功');
+                    a.html('<button class="btn">关注</button>');
+                    a.attr('type-id',0);
+                    return true;
+                }else if(data==3){  
+                    alert('关注成功');
+                    a.html('<button class="btn">取消关注</button>');
+                    a.attr('type-id',1);
+                    return true;
+                }
+            }
+        })
+  });
+</script>

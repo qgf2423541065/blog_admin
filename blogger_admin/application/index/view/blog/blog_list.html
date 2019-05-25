@@ -12,7 +12,12 @@
 <link href="/boke_fanhua/css/m.css" rel="stylesheet">
 
 <!--引入wangEditor.css-->
-
+<style>
+    .pagination{text-align:center;margin-top:20px;margin-bottom: 20px;}
+    .pagination li{margin:0px 10px; border:1px solid #e6e6e6;padding: 3px 8px;display: inline-block;}
+    .pagination .active{background-color: #dd1a20;color: #fff;}
+    .pagination .disabled{color:#aaa;}
+</style>
 
 
 
@@ -118,6 +123,9 @@ obj.id='selected'
         <p><span>{$v.issue_time | date="Y-m-d H:i:s"}</span>&nbsp&nbsp&nbsp&nbsp<span>{if $v.article_type==1}<a style="color: green" id="fb">发布</a>{else/}<a style="color: red" id="wfb">未发布</a>{/if}</span></p>
       </li>
       {/volist}
+      <div>
+        {$data|raw}
+      </div>
       <li>
         <form action="{:url('blog_list_add')}" method="POST">
           <input type="text" name="tmp_tit" placeholder="文章标题">
